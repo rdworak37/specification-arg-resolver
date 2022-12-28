@@ -252,7 +252,7 @@ public class Converter {
 	}
 
 	public Calendar convertToCalendar(String value) {
-		String dateFormat = getDateFormat(Date.class);
+		String dateFormat = getDateFormat(Calendar.class);
 		try {
 			validateDateFormat(dateFormat, value);
 			Calendar cal = Calendar.getInstance();
@@ -265,7 +265,11 @@ public class Converter {
 	
 	public String getDateFormat(Class<?> clazz) {
 		if (dateFormat == null) {
-			return DEFAULT_DATE_FORMATS.get(clazz);
+			if (clazz.isAssignableFrom(Calendar.class)) {
+				return DEFAULT_DATE_FORMATS.get(Date.class);
+			} else {
+				return DEFAULT_DATE_FORMATS.get(clazz);
+			}
 		}
 		
 		return dateFormat;

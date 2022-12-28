@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
@@ -77,6 +78,11 @@ public class CustomerBuilder {
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 		customer.setRegistrationDate(cal.getTime());
+		return this;
+	}
+
+	public CustomerBuilder registrationDate(Date date) {
+		customer.setRegistrationDate(date);
 		return this;
 	}
 	

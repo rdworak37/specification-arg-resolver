@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -54,6 +55,7 @@ public class Customer {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date registrationDate;
+	private Calendar registrationCalendar;
 
     private LocalDate birthDate;
 
@@ -73,7 +75,8 @@ public class Customer {
     
     private boolean gold;
     private Boolean goldObj;
-    
+
+	private Timestamp dateOfNextSpecialOfferTimestamp;
     private Instant dateOfNextSpecialOfferInstant;
     private OffsetDateTime dateOfNextSpecialOffer;
     
@@ -140,6 +143,9 @@ public class Customer {
 
     public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
+
+		this.registrationCalendar = Calendar.getInstance();
+		this.registrationCalendar.setTime(registrationDate);
     }
 
     public LocalDate getBirthDate() {
@@ -196,6 +202,7 @@ public class Customer {
 	public void setDateOfNextSpecialOffer(OffsetDateTime dateOfNextSpecialOffer) {
 		this.dateOfNextSpecialOffer = dateOfNextSpecialOffer;
 		this.dateOfNextSpecialOfferInstant = dateOfNextSpecialOffer.toInstant();
+		this.dateOfNextSpecialOfferTimestamp = Timestamp.from(dateOfNextSpecialOffer.toInstant());
 	}
 	
 	public UUID getRefCode() {
